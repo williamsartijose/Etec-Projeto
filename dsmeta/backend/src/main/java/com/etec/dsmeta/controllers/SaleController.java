@@ -1,7 +1,6 @@
 package com.etec.dsmeta.controllers;
 
 import java.awt.print.Pageable;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +20,10 @@ public class SaleController {
 	private SaleService service;
 
 	@GetMapping
-	public List<Sale> findSales() {
-		return service.findSales();
+	public Page<Sale> findSales(
+			@RequestParam(value="minDate", defaultValue = "") String minDate, 
+			@RequestParam(value="maxDate", defaultValue = "") String maxDate, 
+			Pageable pageable) {
+		return service.findSales(minDate, maxDate, pageable);
 	}
 }
